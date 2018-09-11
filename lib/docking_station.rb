@@ -1,16 +1,19 @@
 require_relative 'bike'
 
 class DockingStation
-  attr_reader :bike #make sure any instances of this docking station class have a bike
-
-  def dock(bike)
-    fail 'Docking station is full' if @bike
-    @bike = bike #instance variable to store the bike in the 'state' of this instance
+  def initialize
+    # attr_reader :bike #make sure any instances of this docking station class have a bike
+    @bikes = []
   end
 
   def release_bike
-    fail 'No bikes available' unless @bike
-    @bike
+    fail 'No bikes available' if @bikes.empty?
+    @bikes.pop
+  end
+
+  def dock(bike)
+    fail 'Docking station is full' if @bikes.count >= 20
+    @bikes << bike #<< add to the end of this array
   end
 
 end
